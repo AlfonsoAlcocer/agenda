@@ -34,3 +34,5 @@ Route::resource('notificaciones', NotificacioneController::class);
 
 
 Route::get('/modulos', [ModuloController::class, 'indexnuevo'])->name('modulos.index.nuevo');
+Route::get('/modulos/{id}/select', [ModuloController::class, 'editar'])->name('modulos.editar');
+

@@ -37,14 +37,14 @@ Modulos
                                 <tr>
                                     <th>No</th>
 
-                                    <th>Id Modulo</th>
+                                    <th class="d-none">Id Modulo</th>
                                     <th>Maestro</th>
-                                    <th>Id Grupo</th>
-                                    <th>Dia Modulo</th>
+                                    <th>Grupo</th>
+                                    <th>Dia</th>
                                     <th>Hora Inicio</th>
                                     <th>Hora Fin</th>
-                                    <th>Materia Modulo</th>
-                                    <th>Estado Modulo</th>
+                                    <th>Materia</th>
+                                    <th>Estado</th>
 
                                     <th></th>
                                 </tr>
@@ -54,9 +54,9 @@ Modulos
                                     <tr>
                                         <td>{{ ++$i }}</td>
 
-                                        <td>{{ $modulo->id_modulo }}</td>
+                                        <td class="d-none">{{ $modulo->id_modulo }}</td>
                                         <td>{{ $modulo->maestro }}</td>
-                                        <td>{{ $modulo->id_grupo }}</td>
+                                        <td>{{ $modulo->grupo }}</td>
                                         <td>{{ $modulo->dia_modulo }}</td>
                                         <td>{{ $modulo->hora_inicio }}</td>
                                         <td>{{ $modulo->hora_fin }}</td>
@@ -70,7 +70,7 @@ Modulos
                                                     href="{{ route('modulos.show', $modulo->id_modulo) }}"><i
                                                         class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
                                                 <a class="btn btn-sm btn-success"
-                                                    href="{{ route('modulos.edit', $modulo->id_modulo) }}"><i
+                                                    href="{{ route('modulos.editar', $modulo->id_modulo) }}"><i
                                                         class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                 @csrf
                                                 @method('DELETE')

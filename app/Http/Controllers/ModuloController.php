@@ -9,6 +9,7 @@ use App\Http\Requests\ModuloRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Maestro;
+use App\Models\Grupo;
 
 class ModuloController extends Controller
 {
@@ -19,7 +20,9 @@ class ModuloController extends Controller
     {
         $modulos = Modulo::paginate();
 
-        return view('modulo.index', compact('modulos'))
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
+
+        return view('modulo.index', compact('modulos','maestros'))
             ->with('i', ($request->input('page', 1) - 1) * $modulos->perPage());
     }
 
@@ -29,8 +32,10 @@ class ModuloController extends Controller
     public function create(): View
     {
         $modulo = new Modulo();
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
+        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')->get();
 
-        return view('modulo.create', compact('modulo'));
+        return view('modulo.create', compact('modulo','maestros','grupo'));
     }
 
     /**
@@ -40,7 +45,7 @@ class ModuloController extends Controller
     {
         Modulo::create($request->validated());
 
-        return Redirect::route('modulos.index')
+        return Redirect::route('modulos.index.nuevo')
             ->with('success', 'Modulo created successfully.');
     }
 
@@ -71,7 +76,7 @@ class ModuloController extends Controller
     {
         $modulo->update($request->validated());
 
-        return Redirect::route('modulos.index')
+        return Redirect::route('modulos.index.nuevo')
             ->with('success', 'Modulo updated successfully');
     }
 
@@ -93,10 +98,23 @@ class ModuloController extends Controller
             $maestro = Maestro::find($modulo->id_maestro); // Buscar maestro por ID
             $modulo->maestro = $maestro ? $maestro->nombre_maestro . ' ' . $maestro->apellidos_maestro : 'Sin asignar';
         }
+        foreach ($modulos as $modulo) {
+            $grupo = Grupo::find($modulo->id_grupo); // Buscar maestro por ID
+            $modulo->grupo = $grupo ? $grupo->nombre_grupo. ' ' . $grupo->carrera_grupo : 'Sin asignar';
+        }
 
         // Calcular el índice para paginación
         $i = ($request->input('page', 1) - 1) * $modulos->perPage();
 
         return view('modulo.index', compact('modulos', 'i'));
+    }
+    public function editar($id): View
+    {
+        $modulo = Modulo::find($id);
+        // Obtener todos los maestros con sus IDs y nombres
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
+        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')->get();
+
+        return view('modulo.edit', compact('modulo', "maestros", 'grupos'));
     }
 }
