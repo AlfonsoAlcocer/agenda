@@ -23,7 +23,7 @@ class ModificacioneController extends Controller
             $maestro = Maestro::find($modificacione->id_maestro); 
             $modificacione->maestro = $maestro ? $maestro->nombre_maestro . ' ' . $maestro->apellidos_maestro : 'Sin asignar';
         }
-        foreach ($modificacione as $modulo) {
+        foreach ($modificaciones as $modificacione) {
             $grupo = Grupo::find($modificacione->id_grupo); 
             $modificacione->grupo = $grupo ? $grupo->nombre_grupo. ' ' . $grupo->carrera_grupo : 'Sin asignar';
         }
