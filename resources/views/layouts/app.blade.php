@@ -24,7 +24,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container-fluid">
 
-                    <h3 class="navbar-brand text-white">Laboratorio de Idiomas</h3>
+                
+                <a class="navbar-brand text-white" href="{{ route('horario') }}">Laboratorio de Idiomas</a>
 
                 <ul class="navbar-nav ms-auto">
                     @guest
