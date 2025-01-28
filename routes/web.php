@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::middleware('auth')->group(function () {
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('modificaciones', ModificacioneController::class);
     Route::resource('notificaciones', NotificacioneController::class);
 
-    Route::get('/horario', [HorariosOficialeController::class, 'showHorario'])->name('horario');
+    Route::get('/home', [HorariosOficialeController::class, 'showHorario'])->name('horario');
 
     Route::get('/modulos', [ModuloController::class, 'indexnuevo'])->name('modulos.index.nuevo');
     Route::get('/modulos/{id}/select', [ModuloController::class, 'editar'])->name('modulos.editar');
