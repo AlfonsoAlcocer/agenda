@@ -11,7 +11,7 @@
 
             <div class="card card-default">
                 <div class="card-header">
-                    <span class="card-title">{{ __('Update') }} Modificaciones</span>
+                    <span class="card-title">{{ __('Editar') }} Modificacion</span>
                 </div>
                 <div class="card-body bg-white">
                     <form method="POST" action="{{ route('modificaciones.update', $modificacione->id_modificacion) }}"

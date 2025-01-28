@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('Create') }} Notificacione
+    {{ __('Crear') }} Notificacion
 @endsection
 
 @section('content')

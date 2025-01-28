@@ -11,7 +11,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Historial Horario</span>
+                        <span class="card-title">{{ __('Crear') }} Historial de Horario</span>
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="{{ route('historial-horarios.store') }}"  role="form" enctype="multipart/form-data">

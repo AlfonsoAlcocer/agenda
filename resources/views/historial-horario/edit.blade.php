@@ -11,7 +11,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Historial Horario</span>
+                        <span class="card-title">{{ __('Editar') }} Historial Horario</span>
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="{{ route('historial-horarios.update', $historialHorario->id_historial) }}"  role="form" enctype="multipart/form-data">

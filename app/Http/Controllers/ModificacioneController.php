@@ -52,7 +52,7 @@ class ModificacioneController extends Controller
         Modificacione::create($request->validated());
 
         return Redirect::route('modificaciones.index')
-            ->with('success', 'Modificacione created successfully.');
+            ->with('success', 'Modificacion creada');
     }
 
     /**
@@ -85,7 +85,7 @@ class ModificacioneController extends Controller
         $modificacione->update($request->validated());
 
         return Redirect::route('modificaciones.index')
-            ->with('success', 'Modificacione updated successfully');
+            ->with('success', 'Modificacion actualizada');
     }
 
     public function destroy($id): RedirectResponse
@@ -93,6 +93,6 @@ class ModificacioneController extends Controller
         Modificacione::find($id)->delete();
 
         return Redirect::route('modificaciones.index')
-            ->with('success', 'Modificacione deleted successfully');
+            ->with('success', 'Modificacion eliminada');
     }
 }

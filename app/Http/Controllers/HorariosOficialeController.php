@@ -42,7 +42,7 @@ class HorariosOficialeController extends Controller
         HorariosOficiale::create($request->validated());
 
         return Redirect::route('horarios-oficiales.index')
-            ->with('success', 'HorariosOficiale created successfully.');
+            ->with('success', 'Horario creado exitosamente');
     }
 
     /**
@@ -73,7 +73,7 @@ class HorariosOficialeController extends Controller
         $horariosOficiale->update($request->validated());
 
         return Redirect::route('horarios-oficiales.index')
-            ->with('success', 'HorariosOficiale updated successfully');
+            ->with('success', 'Horario actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -81,7 +81,7 @@ class HorariosOficialeController extends Controller
         HorariosOficiale::find($id)->delete();
 
         return Redirect::route('horarios-oficiales.index')
-            ->with('success', 'HorariosOficiale deleted successfully');
+            ->with('success', 'Horario eliminado exitosamente ');
     }
 
     public function showHorario()

@@ -51,7 +51,7 @@ class NotificacioneController extends Controller
         Notificacione::create($request->validated());
 
         return Redirect::route('notificaciones.index')
-            ->with('success', 'Notificacione created successfully.');
+            ->with('success', 'Notificacione creada exitosamente');
     }
 
     /**
@@ -83,7 +83,7 @@ class NotificacioneController extends Controller
         $notificacione->update($request->validated());
 
         return Redirect::route('notificaciones.index')
-            ->with('success', 'Notificacione updated successfully');
+            ->with('success', 'Notificacion actualizada exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -91,6 +91,6 @@ class NotificacioneController extends Controller
         Notificacione::find($id)->delete();
 
         return Redirect::route('notificaciones.index')
-            ->with('success', 'Notificacione deleted successfully');
+            ->with('success', 'Notificacione eliminada exitosamente');
     }
 }
