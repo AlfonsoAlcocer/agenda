@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\GrupoRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+//solucion de la paginacion
+use Illuminate\Pagination\Paginator;
+Paginator::useBootstrap();
 
 class GrupoController extends Controller
 {

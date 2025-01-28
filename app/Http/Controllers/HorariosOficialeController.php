@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\HorariosOficialeRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+//solucion de la paginacion
+use Illuminate\Pagination\Paginator;
+Paginator::useBootstrap();
 
 use Carbon\Carbon;
 
@@ -18,7 +21,8 @@ class HorariosOficialeController extends Controller
      */
     public function index(Request $request): View
     {
-        $horariosOficiales = HorariosOficiale::paginate();
+        $horariosOficiales = HorariosOficiale::orderBy('estado_horario', 'desc')->paginate();
+
 
         return view('horarios-oficiale.index', compact('horariosOficiales'))
             ->with('i', ($request->input('page', 1) - 1) * $horariosOficiales->perPage());
@@ -91,44 +95,44 @@ class HorariosOficialeController extends Controller
 
         // Obtenemos los horarios oficiales con los módulos relacionados
         // Obtener el inicio y fin de la semana actual
-    $startOfWeek = Carbon::now()->startOfWeek(); // Lunes
-    $endOfWeek = Carbon::now()->endOfWeek(); // Domingo
+        $startOfWeek = Carbon::now()->startOfWeek(); // Lunes
+        $endOfWeek = Carbon::now()->endOfWeek(); // Domingo
 
-    // Filtrar los horarios dentro de la semana actual
-    $horarios = HorariosOficiale::with(['modulo', 'modulo.maestro', 'modulo.grupo'])
-        //->whereBetween('created_at', [$startOfWeek, $endOfWeek])
-        ->get();
+        // Filtrar los horarios dentro de la semana actual
+        $horarios = HorariosOficiale::with(['modulo', 'modulo.maestro', 'modulo.grupo'])
+            //->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->get();
 
         // dd($horarios);
 
-    // Crear la estructura del horario semanal
-    $horarioSemanal = [
-        '07:00:00 - 07:50:00' => [],
-        '07:50:00 - 08:40:00' => [],
-        '09:00:00 - 09:50:00' => [],
-        '09:50:00 - 10:40:00' => [],
-        '10:40:00 - 11:30:00' => [],
-        '11:30:00 - 12:20:00' => [],
-        '12:40:00 - 13:30:00' => [],
-        '13:30:00 - 14:20:00' => [],
-        '14:20:00 - 15:10:00' => [],
-    ];
+        // Crear la estructura del horario semanal
+        $horarioSemanal = [
+            '07:00:00 - 07:50:00' => [],
+            '07:50:00 - 08:40:00' => [],
+            '09:00:00 - 09:50:00' => [],
+            '09:50:00 - 10:40:00' => [],
+            '10:40:00 - 11:30:00' => [],
+            '11:30:00 - 12:20:00' => [],
+            '12:40:00 - 13:30:00' => [],
+            '13:30:00 - 14:20:00' => [],
+            '14:20:00 - 15:10:00' => [],
+        ];
 
-    // Poblar el horario con las clases
-    foreach ($horarios as $horario) {
-        $modulo = $horario->modulo;
-        $dia = $modulo->dia_modulo; // Ejemplo: 'Lunes'
-        $hora = $modulo->hora_inicio . ' - ' . $modulo->hora_fin;
+        // Poblar el horario con las clases
+        foreach ($horarios as $horario) {
+            $modulo = $horario->modulo;
+            $dia = $modulo->dia_modulo; // Ejemplo: 'Lunes'
+            $hora = $modulo->hora_inicio . ' - ' . $modulo->hora_fin;
 
-        if (isset($horarioSemanal[$hora])) {
-            $horarioSemanal[$hora][$dia] = $modulo;
+            if (isset($horarioSemanal[$hora])) {
+                $horarioSemanal[$hora][$dia] = $modulo;
+            }
         }
-    }
 
-    return view('horario.horario', [
-        'horarioSemanal' => $horarioSemanal,
-        'datos' => $horarios
-    ]);
+        return view('horario.horario', [
+            'horarioSemanal' => $horarioSemanal,
+            'datos' => $horarios
+        ]);
 
     }
 }

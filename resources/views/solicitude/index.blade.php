@@ -36,9 +36,9 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Id Solicitud</th>
+									<th >Numero de Solicitud</th>
 									<th >Emisor Solicitudes</th>
-									<th >Id Modulo</th>
+									<th >Numero de Modulo</th>
 									<th >Estado Solicitud</th>
 									<th >Descripcion Solicitud</th>
 
@@ -50,8 +50,8 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-                                            <td >{{ $solicitude->maestro?->nombre_maestro}} {{ $solicitude->maestro->apellidos_maestro }}</td>
-										<td >{{ $solicitude->emisor_solicitudes }}</td>
+                                        <td >{{ $solicitude->id_solicitud }}</td>
+                                        <td >{{ $solicitude->maestro?->nombre_maestro}} {{ $solicitude->maestro->apellidos_maestro }}</td>
 										<td >{{ $solicitude->id_modulo }}</td>
 										<td >{{ $solicitude->estado_solicitud }}</td>
 										<td >{{ $solicitude->descripcion_solicitud }}</td>
