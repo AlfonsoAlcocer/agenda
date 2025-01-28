@@ -22,7 +22,7 @@
                     <td>  
                         @if (isset($tiempo[$dia]))
                                 <h5>{{'Prof. ' . $tiempo[$dia]->maestro->nombre_maestro. ' ' . $tiempo[$dia]->maestro->apellidos_maestro }}</h5>  
-                                {{ $tiempo[$dia]->maestro->nombre_maestro . ', ' . $tiempo[$dia]->grupo->nombre_grupo }}  
+                                {{ $tiempo[$dia]->materia_modulo . ', ' . $tiempo[$dia]->grupo->nombre_grupo }}  
                         @endif  
                     </td>
                     @endforeach  

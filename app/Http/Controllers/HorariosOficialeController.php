@@ -9,6 +9,8 @@ use App\Http\Requests\HorariosOficialeRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+use Carbon\Carbon;
+
 class HorariosOficialeController extends Controller
 {
     /**
@@ -88,37 +90,45 @@ class HorariosOficialeController extends Controller
         // return view('horario.horario', ['horarios'=> $horario]);
 
         // Obtenemos los horarios oficiales con los módulos relacionados
-        $horarios = HorariosOficiale::with('modulo')->get();
+        // Obtener el inicio y fin de la semana actual
+    $startOfWeek = Carbon::now()->startOfWeek(); // Lunes
+    $endOfWeek = Carbon::now()->endOfWeek(); // Domingo
 
-        // Creamos una estructura para el horario semanal (días y horas)
-        $horarioSemanal = [
-            '07:00:00 - 07:50:00' => [],
-            '07:50:00 - 08:40:00' => [],
-            '09:00:00 - 09:50:00' => [],
-            '09:50:00 - 10:40:00' => [],
-            '10:40:00 - 11:30:00' => [],
-            '11:30:00 - 12:20:00' => [],
-            '12:40:00 - 1:30:00' => [],
-            '1:30:00 - 2:20:00' => [],
-            '2:20:00 - 3:10:00' => [],
-        ];
-
-        // Poblar el horario con las clases
-        foreach ($horarios as $horario) {
-            $modulo = $horario->modulo;
-            $dia = $modulo->dia_modulo; // Ejemplo: 'Lunes'
-            $hora = $modulo->hora_inicio . ' - ' . $modulo->hora_fin;
-
-            if (isset($horarioSemanal[$hora])) {
-                $horarioSemanal[$hora][$dia] = $modulo;
-            }
-        }
+    // Filtrar los horarios dentro de la semana actual
+    $horarios = HorariosOficiale::with(['modulo', 'modulo.maestro', 'modulo.grupo'])
+        //->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+        ->get();
 
         // dd($horarios);
 
-        return view('horario.horario', [
-            'horarioSemanal' => $horarioSemanal, 'datos'=>$horarios
-        ]);
+    // Crear la estructura del horario semanal
+    $horarioSemanal = [
+        '07:00:00 - 07:50:00' => [],
+        '07:50:00 - 08:40:00' => [],
+        '09:00:00 - 09:50:00' => [],
+        '09:50:00 - 10:40:00' => [],
+        '10:40:00 - 11:30:00' => [],
+        '11:30:00 - 12:20:00' => [],
+        '12:40:00 - 13:30:00' => [],
+        '13:30:00 - 14:20:00' => [],
+        '14:20:00 - 15:10:00' => [],
+    ];
+
+    // Poblar el horario con las clases
+    foreach ($horarios as $horario) {
+        $modulo = $horario->modulo;
+        $dia = $modulo->dia_modulo; // Ejemplo: 'Lunes'
+        $hora = $modulo->hora_inicio . ' - ' . $modulo->hora_fin;
+
+        if (isset($horarioSemanal[$hora])) {
+            $horarioSemanal[$hora][$dia] = $modulo;
+        }
+    }
+
+    return view('horario.horario', [
+        'horarioSemanal' => $horarioSemanal,
+        'datos' => $horarios
+    ]);
 
     }
 }

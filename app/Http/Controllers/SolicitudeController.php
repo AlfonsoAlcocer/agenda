@@ -16,7 +16,7 @@ class SolicitudeController extends Controller
      */
     public function index(Request $request): View
     {
-        $solicitudes = Solicitude::paginate();
+        $solicitudes = Solicitude::with('maestro')->paginate();
 
         return view('solicitude.index', compact('solicitudes'))
             ->with('i', ($request->input('page', 1) - 1) * $solicitudes->perPage());
@@ -26,11 +26,13 @@ class SolicitudeController extends Controller
      * Show the form for creating a new resource.
      */
     public function create(): View
-    {
-        $solicitude = new Solicitude();
+{
+    $solicitude = new Solicitude();
+    $maestros = \App\Models\Maestro::all(); // Obtiene todos los maestros
 
-        return view('solicitude.create', compact('solicitude'));
-    }
+    return view('solicitude.create', compact('solicitude', 'maestros'));
+}
+
 
     /**
      * Store a newly created resource in storage.
