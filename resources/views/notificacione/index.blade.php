@@ -51,8 +51,8 @@
                                             <td>{{ ++$i }}</td>
                                             
 										<td >{{ $notificacione->id_notificacion }}</td>
-										<td >{{ $notificacione->emisor_notificacion }}</td>
-										<td >{{ $notificacione->receptor_notificacion }}</td>
+										<td >{{ $notificacione->emisor }}</td>
+										<td >{{ $notificacione->receptor }}</td>
 										<td >{{ $notificacione->descripcion_notificacion }}</td>
 										<td >{{ $notificacione->estado_notificacion }}</td>
 

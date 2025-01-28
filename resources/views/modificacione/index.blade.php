@@ -35,12 +35,12 @@ Modificaciones
                         <table class="table table-striped table-hover">
                             <thead class="thead">
                                 <tr>
-                                    <th>No</th>
+                                    <th class="d-none">No</th>
 
-                                    <th>Id Modificacion</th>
-                                    <th>Id Modulo</th>
-                                    <th>Id Maestro</th>
-                                    <th>Id Grupo</th>
+                                    <th>numero de modificacion</th>
+                                    <th>Numero de modulo</th>
+                                    <th>Maestro</th>
+                                    <th>Grupo</th>
                                     <th>Estado Modificacion</th>
 
                                     <th></th>
@@ -49,12 +49,12 @@ Modificaciones
                             <tbody>
                                 @foreach ($modificaciones as $modificacione)
                                     <tr>
-                                        <td>{{ ++$i }}</td>
+                                        <td class="d-none">{{ ++$i }}</td>
 
                                         <td>{{ $modificacione->id_modificacion }}</td>
                                         <td>{{ $modificacione->id_modulo }}</td>
-                                        <td>{{ $modificacione->id_maestro }}</td>
-                                        <td>{{ $modificacione->id_grupo }}</td>
+                                        <td>{{ $modificacione->maestro }}</td>
+                                        <td>{{ $modificacione->grupo }}</td>
                                         <td>{{ $modificacione->estado_modificacion == 1 ? 'Activo' : 'Inactivo' }}</td>
 
                                         <td>

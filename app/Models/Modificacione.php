@@ -25,7 +25,7 @@ class Modificacione extends Model
 {
     
     protected $perPage = 20;
-    protected $primaryKey = "modificacion";
+    protected $primaryKey = "id_modificacion";
 
     /**
      * The attributes that are mass assignable.

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\NotificacioneRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Maestro;
 
 class NotificacioneController extends Controller
 {
@@ -17,6 +18,15 @@ class NotificacioneController extends Controller
     public function index(Request $request): View
     {
         $notificaciones = Notificacione::paginate();
+        foreach ($notificaciones as $modificacione) {
+            $maestro = Maestro::find($modificacione->emisor_notificacion); 
+            $modificacione->emisor = $maestro ? $maestro->nombre_maestro . ' ' . $maestro->apellidos_maestro : 'Sin asignar';
+        }
+        foreach ($notificaciones as $modificacione) {
+            $maestro = Maestro::find($modificacione->receptor_notificacion); 
+            $modificacione->receptor = $maestro ? $maestro->nombre_maestro . ' ' . $maestro->apellidos_maestro : 'Sin asignar';
+        }
+
 
         return view('notificacione.index', compact('notificaciones'))
             ->with('i', ($request->input('page', 1) - 1) * $notificaciones->perPage());
@@ -28,8 +38,9 @@ class NotificacioneController extends Controller
     public function create(): View
     {
         $notificacione = new Notificacione();
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
 
-        return view('notificacione.create', compact('notificacione'));
+        return view('notificacione.create', compact('notificacione','maestros'));
     }
 
     /**
@@ -59,8 +70,9 @@ class NotificacioneController extends Controller
     public function edit($id): View
     {
         $notificacione = Notificacione::find($id);
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
 
-        return view('notificacione.edit', compact('notificacione'));
+        return view('notificacione.edit', compact('notificacione','maestros'));
     }
 
     /**
