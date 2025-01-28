@@ -9,6 +9,8 @@ use App\Http\Requests\ModificacioneRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+use App\Models\Maestro;
+use App\Models\Grupo;
 class ModificacioneController extends Controller
 {
     /**
@@ -17,6 +19,14 @@ class ModificacioneController extends Controller
     public function index(Request $request): View
     {
         $modificaciones = Modificacione::paginate();
+        foreach ($modificaciones as $modificacione) {
+            $maestro = Maestro::find($modificacione->id_maestro); 
+            $modificacione->maestro = $maestro ? $maestro->nombre_maestro . ' ' . $maestro->apellidos_maestro : 'Sin asignar';
+        }
+        foreach ($modificacione as $modulo) {
+            $grupo = Grupo::find($modificacione->id_grupo); 
+            $modificacione->grupo = $grupo ? $grupo->nombre_grupo. ' ' . $grupo->carrera_grupo : 'Sin asignar';
+        }
 
         return view('modificacione.index', compact('modificaciones'))
             ->with('i', ($request->input('page', 1) - 1) * $modificaciones->perPage());
@@ -28,8 +38,10 @@ class ModificacioneController extends Controller
     public function create(): View
     {
         $modificacione = new Modificacione();
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
+        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')->get();
 
-        return view('modificacione.create', compact('modificacione'));
+        return view('modificacione.create', compact('modificacione','maestros','grupos'));
     }
 
     /**
@@ -59,8 +71,10 @@ class ModificacioneController extends Controller
     public function edit($id): View
     {
         $modificacione = Modificacione::find($id);
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
+        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')->get();
 
-        return view('modificacione.edit', compact('modificacione'));
+        return view('modificacione.edit', compact('modificacione',"maestros","grupos"));
     }
 
     /**

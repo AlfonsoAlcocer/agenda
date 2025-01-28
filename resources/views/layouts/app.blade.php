@@ -20,92 +20,94 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    Laboratorio de idiomas
-                </a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("maestros.index")}}">Maestros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("grupos.index")}}">Grupos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("modulos.index.nuevo")}}">Modulos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("horarios-oficiales.index")}}">Horario oficial</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("solicitudes.index")}}">Solicitudes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("modificaciones.index")}}">Modificaciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("notificaciones.index")}}">Notificaciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route("historial-horarios.index")}}">Historial de Horarios</a>
-                        </li>
-                    </ul>
-
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                 document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+        <!-- Barra de navegación superior -->
+        <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" href="{{ route('home') }}">Laboratorio de Idiomas</a>
+                <ul class="navbar-nav ms-auto">
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('login') }}">Login</a>
                             </li>
-                        @endguest
-                    </ul>
-                </div>
+                        @endif
 
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('register') }}">Register</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Menú lateral -->
+                @auth
+                    @if (Auth::user()->rol === 'Admin') <!-- Verifica si el usuario es Admin -->
+                        <nav class="col-md-2 d-md-block bg-light sidebar shadow" style="height: 100vh; position: fixed;">
+                            <div class="position-sticky">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('maestros.index') }}">Maestros</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('grupos.index') }}">Grupos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('modulos.index.nuevo') }}">Módulos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('horarios-oficiales.index') }}">Horario oficial</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('solicitudes.index') }}">Solicitudes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('modificaciones.index') }}">Modificaciones</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('notificaciones.index') }}">Notificaciones</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('historial-horarios.index') }}">Historial de Horarios</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    @endif
+                @endauth
+
+                <!-- Contenido principal -->
+                <main class="@guest col-md-12 d-flex justify-content-center align-items-center @else col-md-10 ms-sm-auto px-md-4 py-10 @endguest">
+                    @yield('content')
+                </main>
+            </div>
+        </div>
     </div>
+
+    <!-- Scripts necesarios -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+
 
 </html>
