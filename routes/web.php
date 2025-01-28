@@ -16,23 +16,25 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::middleware('auth')->group(function () {
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
 
-Route::resource('historial-horarios', HistorialHorarioController::class);
-Route::resource('maestros', MaestroController::class);
-Route::resource('grupos', GrupoController::class);
-Route::resource('modulos', ModuloController::class);
-Route::resource('horarios-oficiales', HorariosOficialeController::class);
-Route::resource('solicitudes', SolicitudeController::class);
-Route::resource('modificaciones', ModificacioneController::class);
-Route::resource('notificaciones', NotificacioneController::class);
+    Route::resource('historial-horarios', HistorialHorarioController::class);
+    Route::resource('maestros', MaestroController::class);
+    Route::resource('grupos', GrupoController::class);
+    Route::resource('modulos', ModuloController::class);
+    Route::resource('horarios-oficiales', HorariosOficialeController::class);
+    Route::resource('solicitudes', SolicitudeController::class);
+    Route::resource('modificaciones', ModificacioneController::class);
+    Route::resource('notificaciones', NotificacioneController::class);
 
-Route::get('/horario', [HorariosOficialeController::class, 'showHorario'])->name('horario');
+    Route::get('/horario', [HorariosOficialeController::class, 'showHorario'])->name('horario');
 
-Route::get('/modulos', [ModuloController::class, 'indexnuevo'])->name('modulos.index.nuevo');
-Route::get('/modulos/{id}/select', [ModuloController::class, 'editar'])->name('modulos.editar');
+    Route::get('/modulos', [ModuloController::class, 'indexnuevo'])->name('modulos.index.nuevo');
+    Route::get('/modulos/{id}/select', [ModuloController::class, 'editar'])->name('modulos.editar');
 
+});
