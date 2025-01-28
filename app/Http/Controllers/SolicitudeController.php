@@ -26,12 +26,22 @@ class SolicitudeController extends Controller
      * Show the form for creating a new resource.
      */
     public function create(): View
+<<<<<<< HEAD
     {
         $solicitude = new Solicitude();
         $maestros = \App\Models\Maestro::all(); // Obtiene todos los maestros
     
         return view('solicitude.create', compact('solicitude', 'maestros'));
     }
+=======
+{
+    $solicitude = new Solicitude();
+    $maestros = \App\Models\Maestro::all(); // Obtiene todos los maestros
+
+    return view('solicitude.create', compact('solicitude', 'maestros'));
+}
+
+>>>>>>> 0362f73b1f4fb0f836361c0b01536097611ffa30
 
     /**
      * Store a newly created resource in storage.
