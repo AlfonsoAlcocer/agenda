@@ -19,7 +19,7 @@ Horarios Oficiales
                         <div class="float-right">
                             <a href="{{ route('horarios-oficiales.create') }}"
                                 class="btn btn-primary btn-sm float-right" data-placement="left">
-                                {{ __('Create New') }}
+                                {{ __('Nuevo horario') }}
                             </a>
                         </div>
                     </div>
@@ -37,10 +37,10 @@ Horarios Oficiales
                                 <tr>
                                     <th>No</th>
 
-                                    <th>Id Horariooficial</th>
-                                    <th>Cuatrimestre Horario Oficial</th>
-                                    <th>Id Modulo</th>
-                                    <th>Descripcion Modulo</th>
+                                    <th>Numero Horario</th>
+                                    <th>Cuatrimestredel Horario</th>
+                                    <th>NumeroModulo</th>
+                                    <th>Descripcion</th>
                                     <th>Estado Horario</th>
 
                                     <th></th>
@@ -55,23 +55,21 @@ Horarios Oficiales
                                         <td>{{ $horariosOficiale->cuatrimestre_horario_oficial }}</td>
                                         <td>{{ $horariosOficiale->id_modulo }}</td>
                                         <td>{{ $horariosOficiale->descripcion_modulo }}</td>
-                                        <td>{{ $horariosOficiale->estado_horario }}</td>
+                                        <td>{{ $horariosOficiale->estado_horario == 1 ? 'Activo' : 'Inactivo' }}</td>
 
                                         <td>
                                             <form
                                                 action="{{ route('horarios-oficiales.destroy', $horariosOficiale->id_horariooficial) }}"
                                                 method="POST">
-                                                <a class="btn btn-sm btn-primary "
-                                                    href="{{ route('horarios-oficiales.show', $horariosOficiale->id_horariooficial) }}"><i
-                                                        class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                               
                                                 <a class="btn btn-sm btn-success"
                                                     href="{{ route('horarios-oficiales.edit', $horariosOficiale->id_horariooficial) }}"><i
-                                                        class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                        class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i
-                                                        class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    onclick="event.preventDefault(); confirm('Confirmar para eliminar') ? this.closest('form').submit() : false;"><i
+                                                        class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                             </form>
                                         </td>
                                     </tr>

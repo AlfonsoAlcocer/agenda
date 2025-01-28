@@ -14,7 +14,7 @@
                             <span class="card-title">{{ __('Show') }} Maestro</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('maestros.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('maestros.index') }}"> {{ __('Regresar') }}</a>
                         </div>
                     </div>
 

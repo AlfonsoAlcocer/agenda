@@ -11,7 +11,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Horarios Oficiale</span>
+                        <span class="card-title">{{ __('Actualizar') }} Horario</span>
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="{{ route('horarios-oficiales.update', $horariosOficiale->id_horariooficial) }}"  role="form" enctype="multipart/form-data">

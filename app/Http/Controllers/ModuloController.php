@@ -35,7 +35,7 @@ class ModuloController extends Controller
         $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
         $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')->get();
 
-        return view('modulo.create', compact('modulo','maestros','grupo'));
+        return view('modulo.create', compact('modulo','maestros','grupos'));
     }
 
     /**

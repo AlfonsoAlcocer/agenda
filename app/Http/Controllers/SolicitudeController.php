@@ -61,8 +61,9 @@ class SolicitudeController extends Controller
     public function edit($id): View
     {
         $solicitude = Solicitude::find($id);
+        $maestros = \App\Models\Maestro::all();
 
-        return view('solicitude.edit', compact('solicitude'));
+        return view('solicitude.edit', compact('solicitude','maestros'));
     }
 
     /**

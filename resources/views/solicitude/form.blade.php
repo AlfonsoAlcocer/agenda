@@ -24,12 +24,7 @@
             <input type="text" name="id_modulo" class="form-control @error('id_modulo') is-invalid @enderror" value="{{ old('id_modulo', $solicitude?->id_modulo) }}" id="id_modulo" placeholder="Id Modulo">
             {!! $errors->first('id_modulo', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        <div class="form-group mb-2 mb20">
-            <label for="id_modulo" class="form-label">{{ __('Id Modulo') }}</label>
-            <input type="text" name="id_modulo" class="form-control @error('id_modulo') is-invalid @enderror"
-                value="{{ old('id_modulo', $solicitude?->id_modulo) }}" id="id_modulo" placeholder="Id Modulo">
-            {!! $errors->first('id_modulo', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
+
         <div class="form-group mb-2 mb20">
             <label for="estado_solicitud" class="form-label">{{ __('Estado Solicitud') }}</label>
             <select name="estado_solicitud" class="form-control @error('estado_solicitud') is-invalid @enderror"

@@ -19,7 +19,7 @@ Modulos
                         <div class="float-right">
                             <a href="{{ route('modulos.create') }}" class="btn btn-primary btn-sm float-right"
                                 data-placement="left">
-                                {{ __('Create New') }}
+                                {{ __('Nuevo modulo') }}
                             </a>
                         </div>
                     </div>
@@ -35,7 +35,7 @@ Modulos
                         <table class="table table-striped table-hover">
                             <thead class="thead">
                                 <tr>
-                                    <th>No</th>
+                                    <th class="d-none">No</th>
 
                                     <th class="d-none">Id Modulo</th>
                                     <th>Maestro</th>
@@ -52,7 +52,7 @@ Modulos
                             <tbody>
                                 @foreach ($modulos as $modulo)
                                     <tr>
-                                        <td>{{ ++$i }}</td>
+                                        <td class="d-none">{{ ++$i }}</td>
 
                                         <td class="d-none">{{ $modulo->id_modulo }}</td>
                                         <td>{{ $modulo->maestro }}</td>
@@ -66,17 +66,15 @@ Modulos
 
                                         <td>
                                             <form action="{{ route('modulos.destroy', $modulo->id_modulo) }}" method="POST">
-                                                <a class="btn btn-sm btn-primary "
-                                                    href="{{ route('modulos.show', $modulo->id_modulo) }}"><i
-                                                        class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+
                                                 <a class="btn btn-sm btn-success"
                                                     href="{{ route('modulos.editar', $modulo->id_modulo) }}"><i
-                                                        class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                        class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i
-                                                        class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    onclick="event.preventDefault(); confirm('Confirmar para eliminar') ? this.closest('form').submit() : false;"><i
+                                                        class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                             </form>
                                         </td>
                                     </tr>

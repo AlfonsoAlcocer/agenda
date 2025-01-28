@@ -18,7 +18,7 @@
 
                              <div class="float-right">
                                 <a href="{{ route('grupos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Nuevo Grupo') }}
                                 </a>
                               </div>
                         </div>
@@ -34,13 +34,13 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th class="d-none">No</th>
                                         
-									<th >Id Grupo</th>
-									<th >Nombre Grupo</th>
-									<th >Carrera Grupo</th>
-									<th >Num Alumnos Grupo</th>
-									<th >Estado Grupo</th>
+									<th >Numero de Grupo</th>
+									<th >Nombre de Grupo</th>
+									<th >Carrera de Grupo</th>
+									<th >Num Alumnos</th>
+									<th >Estado</th>
 
                                         <th></th>
                                     </tr>
@@ -48,21 +48,21 @@
                                 <tbody>
                                     @foreach ($grupos as $grupo)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                            <td class="d-none">{{ ++$i }}</td>
                                             
 										<td >{{ $grupo->id_grupo }}</td>
 										<td >{{ $grupo->nombre_grupo }}</td>
 										<td >{{ $grupo->carrera_grupo }}</td>
 										<td >{{ $grupo->num_alumnos_grupo }}</td>
-										<td >{{ $grupo->estado_grupo }}</td>
+										<td >{{ $grupo->estado_grupo == 1 ? 'Activo' : 'Inactivo'  }}</td>
 
                                             <td>
                                                 <form action="{{ route('grupos.destroy', $grupo->id_grupo) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('grupos.show', $grupo->id_grupo) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('grupos.edit', $grupo->id_grupo) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    
+                                                    <a class="btn btn-sm btn-success" href="{{ route('grupos.edit', $grupo->id_grupo) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Confirmar para eliminar') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                 </form>
                                             </td>
                                         </tr>
