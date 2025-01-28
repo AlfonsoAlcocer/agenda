@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('Update') }} Notificacione
+    {{ __('Editar') }} Notificacion
 @endsection
 
 @section('content')

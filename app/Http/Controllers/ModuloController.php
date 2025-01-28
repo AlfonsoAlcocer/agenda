@@ -46,7 +46,7 @@ class ModuloController extends Controller
         Modulo::create($request->validated());
 
         return Redirect::route('modulos.index.nuevo')
-            ->with('success', 'Modulo created successfully.');
+            ->with('success', 'Modulo creado exitosamente');
     }
 
     /**
@@ -77,7 +77,7 @@ class ModuloController extends Controller
         $modulo->update($request->validated());
 
         return Redirect::route('modulos.index.nuevo')
-            ->with('success', 'Modulo updated successfully');
+            ->with('success', 'Modulo actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -85,7 +85,7 @@ class ModuloController extends Controller
         Modulo::find($id)->delete();
 
         return Redirect::route('modulos.index')
-            ->with('success', 'Modulo deleted successfully');
+            ->with('success', 'Modulo Eliminado exitosamente');
     }
 
     public function indexnuevo(Request $request): View

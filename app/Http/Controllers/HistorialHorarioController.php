@@ -40,7 +40,7 @@ class HistorialHorarioController extends Controller
         HistorialHorario::create($request->validated());
 
         return Redirect::route('historial-horarios.index')
-            ->with('success', 'HistorialHorario created successfully.');
+            ->with('success', 'Historial creado exitosamente');
     }
 
     /**
@@ -71,7 +71,7 @@ class HistorialHorarioController extends Controller
         $historialHorario->update($request->validated());
 
         return Redirect::route('historial-horarios.index')
-            ->with('success', 'HistorialHorario updated successfully');
+            ->with('success', 'Historial actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -79,6 +79,6 @@ class HistorialHorarioController extends Controller
         HistorialHorario::find($id)->delete();
 
         return Redirect::route('historial-horarios.index')
-            ->with('success', 'HistorialHorario deleted successfully');
+            ->with('success', 'Historial eliminado exitosamente');
     }
 }

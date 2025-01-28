@@ -46,16 +46,22 @@
             {!! $errors->first('descripcion_notificacion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="estado_notificacion" class="form-label">{{ __('Estado Notificacion') }}</label>
-            <input type="text" name="estado_notificacion"
-                class="form-control @error('estado_notificacion') is-invalid @enderror"
-                value="{{ old('estado_notificacion', $notificacione?->estado_notificacion) }}" id="estado_notificacion"
-                placeholder="Estado Notificacion">
+            <label for="estado_notificacion" class="form-label">{{ __('Estado Notificación') }}</label>
+            <select name="estado_notificacion" id="estado_notificacion"
+                class="form-control @error('estado_notificacion') is-invalid @enderror">
+                <option value="leida" {{ old('estado_notificacion', $notificacione?->estado_notificacion) == 'leida' ? 'selected' : '' }}>
+                    Leída
+                </option>
+                <option value="no_leida" {{ old('estado_notificacion', $notificacione?->estado_notificacion) == 'no_leida' ? 'selected' : '' }}>
+                    No leída
+                </option>
+            </select>
             {!! $errors->first('estado_notificacion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
+
     </div>
     <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="submit" class="btn btn-primary">{{ __('Enviar') }}</button>
     </div>
 </div>

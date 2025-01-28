@@ -40,7 +40,7 @@ class MaestroController extends Controller
         Maestro::create($request->validated());
 
         return Redirect::route('maestros.index')
-            ->with('success', 'Maestro created successfully.');
+            ->with('success', 'Maestro Creado exitosamente');
     }
 
     /**
@@ -71,7 +71,7 @@ class MaestroController extends Controller
         $maestro->update($request->validated());
 
         return Redirect::route('maestros.index')
-            ->with('success', 'Maestro updated successfully');
+            ->with('success', 'Maestro actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -79,6 +79,6 @@ class MaestroController extends Controller
         Maestro::find($id)->delete();
 
         return Redirect::route('maestros.index')
-            ->with('success', 'Maestro deleted successfully');
+            ->with('success', 'Maestro Eliminado exitosamente');
     }
 }

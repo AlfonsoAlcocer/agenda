@@ -40,7 +40,7 @@ class GrupoController extends Controller
         Grupo::create($request->validated());
 
         return Redirect::route('grupos.index')
-            ->with('success', 'Grupo created successfully.');
+            ->with('success', 'Grupo creado exitosamente');
     }
 
     /**
@@ -71,7 +71,7 @@ class GrupoController extends Controller
         $grupo->update($request->validated());
 
         return Redirect::route('grupos.index')
-            ->with('success', 'Grupo updated successfully');
+            ->with('success', 'Grupo actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -79,6 +79,6 @@ class GrupoController extends Controller
         Grupo::find($id)->delete();
 
         return Redirect::route('grupos.index')
-            ->with('success', 'Grupo deleted successfully');
+            ->with('success', 'Grupo eliminado exitosamente');
     }
 }

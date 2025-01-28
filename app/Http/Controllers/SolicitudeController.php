@@ -42,7 +42,7 @@ class SolicitudeController extends Controller
         Solicitude::create($request->validated());
 
         return Redirect::route('solicitudes.index')
-            ->with('success', 'Solicitude created successfully.');
+            ->with('success', 'Solicitud creada exitosamente');
     }
 
     /**
@@ -74,7 +74,7 @@ class SolicitudeController extends Controller
         $solicitude->update($request->validated());
 
         return Redirect::route('solicitudes.index')
-            ->with('success', 'Solicitude updated successfully');
+            ->with('success', 'Solicitud actualizada exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -82,6 +82,6 @@ class SolicitudeController extends Controller
         Solicitude::find($id)->delete();
 
         return Redirect::route('solicitudes.index')
-            ->with('success', 'Solicitude deleted successfully');
+            ->with('success', 'Solicitud eliminada exitosamente');
     }
 }
