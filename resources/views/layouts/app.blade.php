@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container-fluid">
 
-                    <a class="navbar-brand text-white" href="{{ route('horario') }}">Laboratorio de Idiomas</a>
+                    <h3 class="navbar-brand text-white">Laboratorio de Idiomas</h3>
 
                 <ul class="navbar-nav ms-auto">
                     @guest
@@ -72,6 +72,9 @@
              style="height: 100vh; position: fixed;">
             <div class="position-sticky">
                 <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('horario') }}">Horario</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('maestros.index') }}">Maestros</a>
                     </li>
