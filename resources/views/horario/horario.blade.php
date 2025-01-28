@@ -20,8 +20,8 @@
                     <th class="table-dark">{{ $hora }}</th>
                     @foreach (['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'] as $dia)  
                     <td>  
-                        @if (isset($tiempo[$dia]))         
-                                <h5>{{'Prof. ' . $tiempo[$dia]->maestro->nombre_maestro }}</h5>  
+                        @if (isset($tiempo[$dia]))
+                                <h5>{{'Prof. ' . $tiempo[$dia]->maestro->nombre_maestro. ' ' . $tiempo[$dia]->maestro->apellidos_maestro }}</h5>  
                                 {{ $tiempo[$dia]->maestro->nombre_maestro . ', ' . $tiempo[$dia]->grupo->nombre_grupo }}  
                         @endif  
                     </td>

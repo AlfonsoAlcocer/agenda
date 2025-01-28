@@ -23,7 +23,7 @@
         <!-- Barra de navegación superior -->
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" href="{{ route('home') }}">Laboratorio de Idiomas</a>
+                <a class="navbar-brand text-white" href="{{ route('horario') }}">Laboratorio de Idiomas</a>
                 <ul class="navbar-nav ms-auto">
                     @guest
                         @if (Route::has('login'))
