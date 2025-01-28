@@ -50,13 +50,8 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-<<<<<<< HEAD
-										<td >{{ $solicitude->id_solicitud }}</td>
-										<td >{{ $solicitude->maestro?->nombre_maestro}} {{ $solicitude->maestro->apellidos_maestro }}</td>
-=======
                                             <td >{{ $solicitude->maestro?->nombre_maestro}} {{ $solicitude->maestro->apellidos_maestro }}</td>
 										<td >{{ $solicitude->emisor_solicitudes }}</td>
->>>>>>> 0362f73b1f4fb0f836361c0b01536097611ffa30
 										<td >{{ $solicitude->id_modulo }}</td>
 										<td >{{ $solicitude->estado_solicitud }}</td>
 										<td >{{ $solicitude->descripcion_solicitud }}</td>
