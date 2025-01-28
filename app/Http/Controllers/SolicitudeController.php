@@ -16,7 +16,7 @@ class SolicitudeController extends Controller
      */
     public function index(Request $request): View
     {
-        $solicitudes = Solicitude::paginate();
+        $solicitudes = Solicitude::with('maestro')->paginate();
 
         return view('solicitude.index', compact('solicitudes'))
             ->with('i', ($request->input('page', 1) - 1) * $solicitudes->perPage());
@@ -28,8 +28,9 @@ class SolicitudeController extends Controller
     public function create(): View
     {
         $solicitude = new Solicitude();
-
-        return view('solicitude.create', compact('solicitude'));
+        $maestros = \App\Models\Maestro::all(); // Obtiene todos los maestros
+    
+        return view('solicitude.create', compact('solicitude', 'maestros'));
     }
 
     /**

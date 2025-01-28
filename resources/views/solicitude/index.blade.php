@@ -51,7 +51,7 @@
                                             <td>{{ ++$i }}</td>
                                             
 										<td >{{ $solicitude->id_solicitud }}</td>
-										<td >{{ $solicitude->emisor_solicitudes }}</td>
+										<td >{{ $solicitude->maestro?->nombre_maestro}} {{ $solicitude->maestro->apellidos_maestro }}</td>
 										<td >{{ $solicitude->id_modulo }}</td>
 										<td >{{ $solicitude->estado_solicitud }}</td>
 										<td >{{ $solicitude->descripcion_solicitud }}</td>
