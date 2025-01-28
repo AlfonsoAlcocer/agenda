@@ -81,4 +81,44 @@ class HorariosOficialeController extends Controller
         return Redirect::route('horarios-oficiales.index')
             ->with('success', 'HorariosOficiale deleted successfully');
     }
+
+    public function showHorario()
+    {
+        // $horario=HorariosOficiale::all();
+        // return view('horario.horario', ['horarios'=> $horario]);
+
+        // Obtenemos los horarios oficiales con los módulos relacionados
+        $horarios = HorariosOficiale::with('modulo')->get();
+
+        // Creamos una estructura para el horario semanal (días y horas)
+        $horarioSemanal = [
+            '07:00:00 - 07:50:00' => [],
+            '07:50:00 - 08:40:00' => [],
+            '09:00:00 - 09:50:00' => [],
+            '09:50:00 - 10:40:00' => [],
+            '10:40:00 - 11:30:00' => [],
+            '11:30:00 - 12:20:00' => [],
+            '12:40:00 - 1:30:00' => [],
+            '1:30:00 - 2:20:00' => [],
+            '2:20:00 - 3:10:00' => [],
+        ];
+
+        // Poblar el horario con las clases
+        foreach ($horarios as $horario) {
+            $modulo = $horario->modulo;
+            $dia = $modulo->dia_modulo; // Ejemplo: 'Lunes'
+            $hora = $modulo->hora_inicio . ' - ' . $modulo->hora_fin;
+
+            if (isset($horarioSemanal[$hora])) {
+                $horarioSemanal[$hora][$dia] = $modulo;
+            }
+        }
+
+        // dd($horarios);
+
+        return view('horario.horario', [
+            'horarioSemanal' => $horarioSemanal, 'datos'=>$horarios
+        ]);
+
+    }
 }
