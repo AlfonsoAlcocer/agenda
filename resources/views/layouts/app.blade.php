@@ -25,7 +25,7 @@
             <div class="container-fluid">
 
                 
-                <a class="navbar-brand text-white" href="{{ route('horario') }}">Laboratorio de Idiomas</a>
+                <a class="navbar-brand text-white" id="navbarBtn" href="{{ route('horario') }}">Laboratorio de Idiomas</a>
 
                 <ul class="navbar-nav ms-auto">
                     @guest
@@ -74,7 +74,7 @@
             <div class="position-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('horario') }}">Horario</a>
+                        <a class="nav-link" id="linkHorario" href="{{ route('horario') }}">Horario</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('maestros.index') }}">Maestros</a>
@@ -122,6 +122,7 @@
         const sidebar = document.getElementById('sidebar');
         const currentRoute = window.location.pathname; // Obtiene la ruta actual
         const isSmallScreen = window.innerWidth < 768; // Verifica si es una pantalla pequeña
+        const navbarBtn= document.getElementById('navbarBtn');
 
         // Oculta el menú lateral si estás en la ruta "horario" y en pantalla pequeña
         function toggleSidebar() {
@@ -132,8 +133,13 @@
             }
         }
 
+        function toggle(){
+            
+        }
+
+        navbarBtn.addEventListener("click", toggleSidebar());
         // Ejecuta al cargar la página
-        toggleSidebar();
+        toggleSidebar();        
 
         // Vuelve a verificar si cambia el tamaño de la pantalla
         window.addEventListener('resize', () => {
@@ -141,9 +147,5 @@
         });
     });
 </script>
-
 </body>
-
-
-
 </html>
