@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Estilos para el sidebar */
+#sidebar {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Ocultar el sidebar en pantallas pequeñas */
+@media (max-width: 800px) {
+    #sidebar {
+        transform: translateX(-100%);
+        width: 100%;
+        z-index: 1000;
+    }
+
+    #sidebar.active {
+        transform: translateX(0);
+    }
+
+    /* Ajustar el contenido principal cuando el sidebar está visible */
+    main {
+        margin-left: 0 !important;
+    }
+
+    main {
+        transition: margin-left 0.3s ease-in-out;
+    }
+
+    #sidebar.active+main {
+        margin-left: 100%;
+    }
+}

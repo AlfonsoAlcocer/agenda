@@ -15,7 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js', ])
 </head>
 
 <body>
@@ -23,9 +23,7 @@
         <!-- Barra de navegación superior -->
         <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container-fluid">
-
-                
-                <a class="navbar-brand text-white" id="navbarBtn" href="{{ route('horario') }}">Laboratorio de Idiomas</a>
+                <a class="navbar-brand text-white" id="navbarBtn" type="button">Laboratorio de Idiomas</a>
 
                 <ul class="navbar-nav ms-auto">
                     @guest
@@ -41,26 +39,25 @@
                             </li>
                         @endif
                     @else
-                        <li class="nav-item dropdown">
-
-                            <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" role="button"
-                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                    
+                    {{-- <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                Logout
                             </a>
-                            
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-                                <form  action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li> --}}
                         <form id="logout-form" action="{{ route('logout')}}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-sm btn-warning">Cerrar Sesión</button>
+                            <button type="submit" class="btn btn-sm btn-outline-warning">Cerrar Sesión</button>
                         </form>
 
                     @endguest
@@ -72,46 +69,45 @@
             <div class="row">
                 <!-- Menú lateral -->
                 <!-- Menú lateral -->
-@auth
-    @if (Auth::user()->rol === 'Admin') <!-- Verifica si el usuario es Admin -->
-        <nav id="sidebar" class="col-md-2 d-md-block bg-light sidebar shadow" 
-             style="height: 100vh; position: fixed;">
-            <div class="position-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" id="linkHorario" href="{{ route('horario') }}">Horario</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('maestros.index') }}">Maestros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('grupos.index') }}">Grupos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('modulos.index.nuevo') }}">Módulos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('horarios-oficiales.index') }}">Horario oficial</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('solicitudes.index') }}">Solicitudes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('modificaciones.index') }}">Modificaciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('notificaciones.index') }}">Notificaciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('historial-horarios.index') }}">Historial de Horarios</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    @endif
-@endauth
+                @auth
+                    @if (Auth::user()->rol === 'Admin') <!-- Verifica si el usuario es Admin -->
+                        <nav id="sidebar" class="col-md-2 d-md-block bg-light sidebar shadow" 
+                            style="height: 100vh; position: fixed;">
+                            <div class="position-sticky">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="linkHorario" href="{{ route('horario') }}">Horario</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('maestros.index') }}">Maestros</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('grupos.index') }}">Grupos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('modulos.index.nuevo') }}">Módulos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('horarios-oficiales.index') }}">Horario oficial</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('solicitudes.index') }}">Solicitudes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('modificaciones.index') }}">Modificaciones</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('notificaciones.index') }}">Notificaciones</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('historial-horarios.index') }}">Historial de Horarios</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
 
-
+                    @endif
+                @endauth
                 <!-- Contenido principal -->
                 <main class="@guest col-md-12 d-flex justify-content-center align-items-center @else col-md-10 ms-sm-auto px-md-4 py-10 @endguest">
                     @yield('content')
@@ -122,7 +118,7 @@
 
     <!-- Scripts necesarios -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+    {{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         const sidebar = document.getElementById('sidebar');
         const currentRoute = window.location.pathname; // Obtiene la ruta actual
@@ -137,12 +133,6 @@
                 sidebar.classList.remove('d-none');
             }
         }
-
-        function toggle(){
-            
-        }
-
-        navbarBtn.addEventListener("click", toggleSidebar());
         // Ejecuta al cargar la página
         toggleSidebar();        
 
@@ -151,6 +141,6 @@
             toggleSidebar();
         });
     });
-</script>
+</script> --}}
 </body>
 </html>
