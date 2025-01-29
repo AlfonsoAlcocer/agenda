@@ -11,6 +11,9 @@ use Illuminate\View\View;
 
 use App\Models\Maestro;
 use App\Models\Grupo;
+//solucion de la paginacion
+use Illuminate\Pagination\Paginator;
+Paginator::useBootstrap();
 class ModificacioneController extends Controller
 {
     /**
@@ -18,7 +21,8 @@ class ModificacioneController extends Controller
      */
     public function index(Request $request): View
     {
-        $modificaciones = Modificacione::paginate();
+        $modificaciones = Modificacione::orderBy('estado_modificacion', 'desc')->paginate();
+
         foreach ($modificaciones as $modificacione) {
             $maestro = Maestro::find($modificacione->id_maestro); 
             $modificacione->maestro = $maestro ? $maestro->nombre_maestro . ' ' . $maestro->apellidos_maestro : 'Sin asignar';
@@ -38,8 +42,14 @@ class ModificacioneController extends Controller
     public function create(): View
     {
         $modificacione = new Modificacione();
-        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
-        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')->get();
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')
+            ->where('estado_maestro', 1)
+            ->get();
+
+
+        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')
+            ->where('estado_grupo', 1) // Filtra los grupos con estado_grupo = 1
+            ->get();
 
         return view('modificacione.create', compact('modificacione','maestros','grupos'));
     }
@@ -71,8 +81,14 @@ class ModificacioneController extends Controller
     public function edit($id): View
     {
         $modificacione = Modificacione::find($id);
-        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
-        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')->get();
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')
+            ->where('estado_maestro', 1)
+            ->get();
+
+
+        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')
+            ->where('estado_grupo', 1) // Filtra los grupos con estado_grupo = 1
+            ->get();
 
         return view('modificacione.edit', compact('modificacione',"maestros","grupos"));
     }

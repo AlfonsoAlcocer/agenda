@@ -9,6 +9,10 @@ use App\Http\Requests\HistorialHorarioRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+//solucion de la paginacion
+use Illuminate\Pagination\Paginator;
+Paginator::useBootstrap();
+
 class HistorialHorarioController extends Controller
 {
     /**
@@ -16,6 +20,8 @@ class HistorialHorarioController extends Controller
      */
     public function index(Request $request): View
     {
+        
+
         $historialHorarios = HistorialHorario::paginate();
 
         return view('historial-horario.index', compact('historialHorarios'))

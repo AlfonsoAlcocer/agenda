@@ -59,7 +59,7 @@ Historial Horarios
                                             <form
                                                 action="{{ route('historial-horarios.destroy', $historialHorario->id_historial) }}"
                                                 method="POST">
-                                       
+
                                                 <a class="btn btn-sm btn-success"
                                                     href="{{ route('historial-horarios.edit', $historialHorario->id_historial) }}"><i
                                                         class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
@@ -78,7 +78,7 @@ Historial Horarios
                 </div>
             </div>
             {!! $historialHorarios->withQueryString()->links() !!}
+
         </div>
     </div>
-</div>
-@endsection
+    @endsection

@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\MaestroRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+//solucion de la paginacion
+use Illuminate\Pagination\Paginator;
+Paginator::useBootstrap();
 
 class MaestroController extends Controller
 {
@@ -16,7 +19,7 @@ class MaestroController extends Controller
      */
     public function index(Request $request): View
     {
-        $maestros = Maestro::paginate();
+        $maestros = Maestro::orderBy('estado_maestro', 'desc')->paginate();
 
         return view('maestro.index', compact('maestros'))
             ->with('i', ($request->input('page', 1) - 1) * $maestros->perPage());

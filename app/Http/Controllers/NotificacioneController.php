@@ -9,6 +9,9 @@ use App\Http\Requests\NotificacioneRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\Maestro;
+//solucion de la paginacion
+use Illuminate\Pagination\Paginator;
+Paginator::useBootstrap();
 
 class NotificacioneController extends Controller
 {
@@ -17,13 +20,14 @@ class NotificacioneController extends Controller
      */
     public function index(Request $request): View
     {
-        $notificaciones = Notificacione::paginate();
+        $notificaciones = Notificacione::orderBy('estado_notificacion', 'desc')->paginate();
+
         foreach ($notificaciones as $modificacione) {
-            $maestro = Maestro::find($modificacione->emisor_notificacion); 
+            $maestro = Maestro::find($modificacione->emisor_notificacion);
             $modificacione->emisor = $maestro ? $maestro->nombre_maestro . ' ' . $maestro->apellidos_maestro : 'Sin asignar';
         }
         foreach ($notificaciones as $modificacione) {
-            $maestro = Maestro::find($modificacione->receptor_notificacion); 
+            $maestro = Maestro::find($modificacione->receptor_notificacion);
             $modificacione->receptor = $maestro ? $maestro->nombre_maestro . ' ' . $maestro->apellidos_maestro : 'Sin asignar';
         }
 
@@ -38,9 +42,14 @@ class NotificacioneController extends Controller
     public function create(): View
     {
         $notificacione = new Notificacione();
-        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')
+            ->where('estado_maestro', 1)
+            ->get();
 
-        return view('notificacione.create', compact('notificacione','maestros'));
+
+
+
+        return view('notificacione.create', compact('notificacione', 'maestros'));
     }
 
     /**
@@ -70,9 +79,11 @@ class NotificacioneController extends Controller
     public function edit($id): View
     {
         $notificacione = Notificacione::find($id);
-        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')
+            ->where('estado_maestro', 1)
+            ->get();
 
-        return view('notificacione.edit', compact('notificacione','maestros'));
+        return view('notificacione.edit', compact('notificacione', 'maestros'));
     }
 
     /**

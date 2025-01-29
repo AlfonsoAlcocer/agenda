@@ -11,6 +11,10 @@ use Illuminate\View\View;
 use App\Models\Maestro;
 use App\Models\Grupo;
 
+//solucion de la paginacion
+use Illuminate\Pagination\Paginator;
+Paginator::useBootstrap();
+
 class ModuloController extends Controller
 {
     /**
@@ -22,7 +26,7 @@ class ModuloController extends Controller
 
         $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
 
-        return view('modulo.index', compact('modulos','maestros'))
+        return view('modulo.index', compact('modulos', 'maestros'))
             ->with('i', ($request->input('page', 1) - 1) * $modulos->perPage());
     }
 
@@ -32,10 +36,18 @@ class ModuloController extends Controller
     public function create(): View
     {
         $modulo = new Modulo();
-        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
-        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')->get();
 
-        return view('modulo.create', compact('modulo','maestros','grupos'));
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')
+            ->where('estado_maestro', 1)
+            ->get();
+
+
+        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')
+            ->where('estado_grupo', 1) // Filtra los grupos con estado_grupo = 1
+            ->get();
+
+
+        return view('modulo.create', compact('modulo', 'maestros', 'grupos'));
     }
 
     /**
@@ -91,7 +103,8 @@ class ModuloController extends Controller
     public function indexnuevo(Request $request): View
     {
         // Obtener los módulos paginados
-        $modulos = Modulo::paginate();
+        $modulos = Modulo::orderBy('estado_modulo', 'desc')->paginate();
+
 
         // Añadir manualmente el maestro a cada módulo
         foreach ($modulos as $modulo) {
@@ -100,7 +113,7 @@ class ModuloController extends Controller
         }
         foreach ($modulos as $modulo) {
             $grupo = Grupo::find($modulo->id_grupo); // Buscar maestro por ID
-            $modulo->grupo = $grupo ? $grupo->nombre_grupo. ' ' . $grupo->carrera_grupo : 'Sin asignar';
+            $modulo->grupo = $grupo ? $grupo->nombre_grupo . ' ' . $grupo->carrera_grupo : 'Sin asignar';
         }
 
         // Calcular el índice para paginación
@@ -112,8 +125,14 @@ class ModuloController extends Controller
     {
         $modulo = Modulo::find($id);
         // Obtener todos los maestros con sus IDs y nombres
-        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')->get();
-        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')->get();
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')
+            ->where('estado_maestro', 1)
+            ->get();
+
+
+        $grupos = Grupo::select('id_grupo', 'nombre_grupo', 'carrera_grupo')
+            ->where('estado_grupo', 1) // Filtra los grupos con estado_grupo = 1
+            ->get();
 
         return view('modulo.edit', compact('modulo', "maestros", 'grupos'));
     }

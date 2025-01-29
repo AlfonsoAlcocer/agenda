@@ -43,7 +43,7 @@
                     @else
                         <li class="nav-item dropdown">
 
-                            <a id="navbarDropdown" class="nav-link text-white dropdown-toggle"href="{{ route('logout') }}" role="button"
+                            <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
@@ -53,11 +53,16 @@
                                     document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                <form  action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
                             </div>
                         </li>
+                        <form id="logout-form" action="{{ route('logout')}}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-warning">Cerrar Sesión</button>
+                        </form>
+
                     @endguest
                 </ul>
             </div>

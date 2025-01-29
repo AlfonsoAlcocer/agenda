@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SolicitudeRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Maestro;
+
+//solucion de la paginacion
+use Illuminate\Pagination\Paginator;
+Paginator::useBootstrap();
 
 class SolicitudeController extends Controller
 {
@@ -16,7 +21,9 @@ class SolicitudeController extends Controller
      */
     public function index(Request $request): View
     {
-        $solicitudes = Solicitude::with('maestro')->paginate();
+        $solicitudes = Solicitude::with('maestro')
+            ->orderByRaw("FIELD(estado_solicitud, 'Pendiente', 'Aprobada', 'Rechazada')")
+            ->paginate();
 
         return view('solicitude.index', compact('solicitudes'))
             ->with('i', ($request->input('page', 1) - 1) * $solicitudes->perPage());
@@ -26,12 +33,16 @@ class SolicitudeController extends Controller
      * Show the form for creating a new resource.
      */
     public function create(): View
-{
-    $solicitude = new Solicitude();
-    $maestros = \App\Models\Maestro::all(); // Obtiene todos los maestros
+    {
+        $solicitude = new Solicitude();
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')
+            ->where('estado_maestro', 1)
+            ->get();
 
-    return view('solicitude.create', compact('solicitude', 'maestros'));
-}
+
+
+        return view('solicitude.create', compact('solicitude', 'maestros'));
+    }
 
 
     /**
@@ -61,9 +72,12 @@ class SolicitudeController extends Controller
     public function edit($id): View
     {
         $solicitude = Solicitude::find($id);
-        $maestros = \App\Models\Maestro::all();
+        
+        $maestros = Maestro::select('id_maestro', 'nombre_maestro', 'apellidos_maestro')
+            ->where('estado_maestro', 1)
+            ->get();
 
-        return view('solicitude.edit', compact('solicitude','maestros'));
+        return view('solicitude.edit', compact('solicitude', 'maestros'));
     }
 
     /**
