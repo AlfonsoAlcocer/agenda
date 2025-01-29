@@ -1,6 +1,5 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
-
         <div class="form-group mb-2 mb20">
             <label for="id_modificacion" class="form-label">{{ __('numero de modificacion') }}</label>
             <input type="text" name="id_modificacion"
@@ -56,7 +55,8 @@
 
 
     </div>
-    <div class="col-md-12 mt20 mt-2">
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-outline-primary" href="{{ URL::previous() }}">Volver</a>
         <button type="submit" class="btn btn-primary">{{ __('Enviar') }}</button>
     </div>
 </div>

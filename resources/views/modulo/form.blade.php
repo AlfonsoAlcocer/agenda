@@ -93,7 +93,8 @@
 
 
     </div>
-    <div class="col-md-12 mt20 mt-2">
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-outline-primary" href="{{ URL::previous() }}">Volver</a>
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>
 </div>
